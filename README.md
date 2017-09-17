@@ -23,3 +23,58 @@ Code to describe and show a strategy for imputing missing data
 Histogram of the total number of steps taken each day after missing values are imputed
 Panel plot comparing the average number of steps taken per 5-minute interval across weekdays and weekends
 All of the R code needed to reproduce the results (numbers, plots, etc.) in the report
+
+Question 1 
+Make a time series plot (i.e. type = "l") of the 5-minute interval (x-axis) and the average number of steps taken, averaged across all days (y-axis)
+# Clear the workspace
+rm(sum_data)
+
+# Compute the means of steps accross all days for each interval
+mean_data <- aggregate(activity$steps, 
+                       by=list(activity$interval), 
+                       FUN=mean, 
+                       na.rm=TRUE)
+
+# Rename the attributes
+names(mean_data) <- c("interval", "mean")
+
+head(mean_data)
+# Compute the time series plot
+plot(mean_data$interval, 
+     mean_data$mean, 
+     type="l", 
+     col="blue", 
+     lwd=2, 
+     xlab="Interval [minutes]", 
+     ylab="Average number of steps", 
+     main="Time-series of the average number of steps per intervals\n(NA removed)")
+
+Question 2
+Which 5-minute interval, on average across all the days in the dataset, contains the maximum number of steps?
+The 5-minute interval that contains the maximum of steps, on average across all days, is 835.
+
+The number of NA’s is 2304.
+
+
+Make a histogram of the total number of steps taken each day and calculate and report the mean and median total number of steps taken per day. Do these values differ from the estimates from the first part of the assignment? What is the impact of imputing missing data on the estimates of the total daily number of steps?
+# Compute the total number of steps each day (NA values removed)
+sum_data <- aggregate(activity$steps, by=list(activity$date), FUN=sum)
+
+# Rename the attributes
+names(sum_data) <- c("date", "total")
+
+# Compute the histogram of the total number of steps each day
+hist(sum_data$total, 
+     breaks=seq(from=0, to=25000, by=2500),
+     col="blue", 
+     xlab="Total number of steps", 
+     ylim=c(0, 30), 
+     main="Histogram of the total number of steps taken each day\n(NA replaced by mean value)")
+     
+The mean and median are computed like
+
+mean(sum_data$total)
+median(sum_data$total)
+These formulas gives a mean and median of 10766 and 10766 respectively.
+
+These values differ greatly from the estimates from the first part of the assignment. The impact of imputing the missing values is to have more data, hence to obtain a bigger mean and median value.
