@@ -7,24 +7,49 @@ This assignment makes use of data from a personal activity monitoring device. Th
 
 
 __Code for reading in the dataset and/or processing the data__
+See line 23 of the Rscript File: 
+*> activity  <- read.csv("./activity.csv", stringsAsFactors = F)*
 
 __Histogram of the total number of steps taken each day__
+See RPlot01.png
+Line 78 onwards
 
 __Mean and median number of steps taken each day__
+See line 109 onwards of the Rscript File
+mean(sum_data$total)
+median(sum_data$total)
+These formulas gives a mean and median of __10766 and 10766__ respectively.
 
 __Time series plot of the average number of steps taken__
+See line 140 onwards
+Also RPlot02.png
 
 __The 5-minute interval that, on average, contains the maximum number of steps__
+170 onwards in Rscrip file 
+The number of NA’s is 2304.
 
 __Code to describe and show a strategy for imputing missing data__
+Lines 68 onwards
 
 __Histogram of the total number of steps taken each day after missing values are imputed__
+Rplot03.png
+Lines 68 onwards
 
 __Panel plot comparing the average number of steps taken per 5-minute interval across weekdays and weekends__
+Lines 249 Onwards
+RPlot04.png
+msbi2 <- aggregate(act$steps, by=list(act$interval, act$wday),mean)
+names(msbi2) <- c("interval", "wday", "steps")
+xyplot(steps ~ interval | wday, msbi2, type = "l", layout = c(1,2),
+       xlab = "5-Minute Interval", ylab = "Number of Steps")
 
 __All of the R code needed to reproduce the results (numbers, plots, etc.) in the report__
+Rscript File 
 
-__Question 1__
+
+
+Workings Below
+Question 
 Make a time series plot (i.e. type = "l") of the 5-minute interval (x-axis) and the average number of steps taken, averaged across all days (y-axis)
 Clear the workspace
 rm(sum_data)
@@ -51,7 +76,7 @@ plot(mean_data$interval,
 
 
 
-__Question 2__
+Question 2
 Which 5-minute interval, on average across all the days in the dataset, contains the maximum number of steps?
 The 5-minute interval that contains the maximum of steps, on average across all days, is 835.
 
