@@ -16,26 +16,39 @@ Line 78 onwards
 
 __Mean and median number of steps taken each day__
 See line 109 onwards of the Rscript File
-mean(sum_data$total)
-median(sum_data$total)
-These formulas gives a mean and median of __10766 and 10766__ respectively.
+mean <- mean(totstep, na.rm = TRUE)
+median <- median(totstep, na.rm = TRUE)
+The mean number of steps taken each day is:
+## [1] 9354.23
+The median number of steps taken each day is:
+## [1] 10395
 
 __Time series plot of the average number of steps taken__
 See line 140 onwards
 Also RPlot02.png
 
 __The 5-minute interval that, on average, contains the maximum number of steps__
-170 onwards in Rscrip file 
-The number of NA’s is 2304.
+The 5-Minute interval which contains the maximum number of steps is the first number is the nth observation and the second is the actual number of max steps taken:
+## 835 
+## 104
 
 __Code to describe and show a strategy for imputing missing data__
-Lines 68 onwards
+> length(naarray)
+[1] 2304
+After cleaning the number of missing values is now:
+## [1] 0
 
 __Histogram of the total number of steps taken each day after missing values are imputed__
 Rplot03.png
-Lines 68 onwards
+totstep2 <- tapply(act$steps, act$date, sum, na.rm=TRUE) 
+hist(totstep2, main = "Total Steps per Day with Replaced NAs", xlab = "Total Steps" )
+
 
 __Panel plot comparing the average number of steps taken per 5-minute interval across weekdays and weekends__
+The mean number of steps taken each day is:
+## [1] 10766.19
+The median number of steps taken each day is:
+## [1] 10766.19
 Lines 249 Onwards
 RPlot04.png
 msbi2 <- aggregate(act$steps, by=list(act$interval, act$wday),mean)
@@ -47,8 +60,7 @@ __All of the R code needed to reproduce the results (numbers, plots, etc.) in th
 Rscript File 
 
 
-
-Workings Below
+Previous Workings Below
 Question 
 Make a time series plot (i.e. type = "l") of the 5-minute interval (x-axis) and the average number of steps taken, averaged across all days (y-axis)
 Clear the workspace
