@@ -264,3 +264,7 @@ daytype  weekday interval     mean
            +        ylab="Number of steps", 
            +        layout=c(1,2))
 > 
+  msbi2 <- aggregate(act$steps, by=list(act$interval, act$wday),mean)
+names(msbi2) <- c("interval", "wday", "steps")
+xyplot(steps ~ interval | wday, msbi2, type = "l", layout = c(1,2),
+       xlab = "5-Minute Interval", ylab = "Number of Steps")
